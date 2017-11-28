@@ -23,6 +23,6 @@ jspm_packages
 
 # Project Files
 public
-docs
+# docs
 .eslintcache
 .stylelintcache
