@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from 'components/ui/Button/Button';
-//import createReactClass from 'create-react-class';
+// import Button from 'components/ui/Button/Button';
+// import createReactClass from 'create-react-class';
 
 import $ from 'jquery';
 
@@ -10,7 +10,7 @@ class HomePage extends React.Component {
     this.state = {
       labelVisibility: 'visible',
       searchInputValue: '',
-      data: null,
+      data: [],
     };
     this.delayTimer = null;
   }
@@ -21,6 +21,8 @@ class HomePage extends React.Component {
       $.get(
         `https://klarna-187423.appspot.com/api/search?query=${query}&page=1`,
         (result) => {
+          // console.log(`Result for ${query}`);
+          // console.log(result);
           this.setState({
             ...this.state,
             data: result,
@@ -54,17 +56,37 @@ class HomePage extends React.Component {
   }
 
   render() {
+    //console.log(this.state.data.data);
+    const listItems = (this.state.data && this.state.data.data && this.state.data.data.length > 0) ?
+      this.state.data.data.map((item) =>
+        (
+          <div key={item.id} className="cui__selector--direct__item">
+            <img alt="person" className="user-avatar" src={item.picture} />
+
+            <div className="cui__selector--direct__label">
+              {item.name} ({item.age}), {item.phone}
+            </div>
+
+            <p className="cui__selector--direct__description">
+              {item.address.street}. {item.address.city}, {item.address.country}.
+            </p>
+          </div>
+        )) : (<div>No data</div>);
+
     return (
       <div>
 
         <div className="search">
           <div className="cui__input giant">
-            <label className="cui__input__label"
+            <label
+              htmlFor="searchInput"
+              className="cui__input__label"
               style={{ visibility: this.state.labelVisibility }}
             >
               Type your search query
             </label>
             <input
+              id="searchInput"
               value={this.state.searchInputValue}
               onChange={(evt) => this.updateInputValue(evt)}
               className="cui__input__input"
@@ -79,78 +101,7 @@ class HomePage extends React.Component {
                 Search results
               </h2>
 
-              <div className="cui__selector--direct__item">
-                <img className="user-avatar" src="anscombe.jpg" />
-
-                <div className="cui__selector--direct__label">
-                  Elizabeth Anscombe (65), +46-771793336
-                </div>
-
-                <p className="cui__selector--direct__description">
-                  Mackenzie Av, 34. Toronto, Canada.
-                </p>
-              </div>
-
-              <div className="cui__selector--direct__item">
-                <img className="user-avatar" src="tarski.jpg" />
-
-                <div className="cui__selector--direct__label">
-                  Alfred Tarski (74), +46-771793336
-                </div>
-
-                <p className="cui__selector--direct__description">
-                  Mackenzie Av, 34. Toronto, Canada.
-                </p>
-              </div>
-
-              <div className="cui__selector--direct__item">
-                <img className="user-avatar" src="quine.jpg" />
-
-                <div className="cui__selector--direct__label">
-                  Willard Van Orman Quine (82), +46-771793336
-                </div>
-
-                <p className="cui__selector--direct__description">
-                  Mackenzie Av, 34. Toronto, Canada.
-                </p>
-              </div>
-
-              <div className="cui__selector--direct__item">
-                <img className="user-avatar" src="nussbaum.jpg" />
-
-                <div className="cui__selector--direct__label">
-                  Martha Craven Nussbaum (50), +46-771793336
-                </div>
-
-                <p className="cui__selector--direct__description">
-                  Mackenzie Av, 34. Toronto, Canada.
-                </p>
-              </div>
-
-              <div className="cui__selector--direct__item">
-                <img className="user-avatar" src="beauvoir.jpg" />
-
-                <div className="cui__selector--direct__label">
-                  Simone de Beauvoir (44), +46-771793336
-                </div>
-
-                <p className="cui__selector--direct__description">
-                  Mackenzie Av, 34. Toronto, Canada.
-                </p>
-              </div>
-
-              <div className="cui__selector--direct__item">
-                <img className="user-avatar" src="russell.jpg" />
-
-                <div className="cui__selector--direct__label">
-                  Bertrand Arthur William Russell (66), +46-771793336
-                </div>
-
-                <p className="cui__selector--direct__description">
-                  Mackenzie Av, 34. Toronto, Canada.
-                </p>
-              </div>
-
+              {listItems}
 
             </div>
 
