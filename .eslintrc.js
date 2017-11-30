@@ -17,7 +17,8 @@ module.exports = {
       imports: 'always-multiline',
       exports: 'always-multiline',
       functions: 'ignore',
-    }]
+    }],
+    'jsx-a11y/label-has-for': 'off'
   },
 
   settings: {
