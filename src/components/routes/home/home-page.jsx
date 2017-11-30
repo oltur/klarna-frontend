@@ -2,8 +2,10 @@ import React from 'react';
 import Spinner from 'react-spinkit';
 
 import Button from '../../ui/Button/Button';
+import ListItem from '../../business/list-item/list-item';
 import SearchService from '../../../services/search.service';
 
+import Person from '../../../models/person';
 import './home-page.scss';
 
 class HomePage extends React.Component {
@@ -103,17 +105,7 @@ class HomePage extends React.Component {
     const listItems = this.hasData ?
       this.state.data.data.map((item) =>
         (
-          <div key={item.id} className="cui__selector--direct__item">
-            <img alt="person" className="user-avatar" src={item.picture} />
-
-            <div className="cui__selector--direct__label">
-              {item.name} ({item.age}), {item.phone}
-            </div>
-
-            <p className="cui__selector--direct__description">
-              {item.address.street}. {item.address.city}, {item.address.country}.
-            </p>
-          </div>
+          <ListItem key={item.id} item={new Person(item)} />
         )) : (<div>No data</div>);
 
     return (
