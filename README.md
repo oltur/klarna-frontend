@@ -1,6 +1,7 @@
 # Front-end for Klarna People Search.
 
 Production build is now hosted at Gitub pages at https://oltur.github.io/klarna-frontend/#/.
+
 Uses https://klarna-187423.appspot.com/api/search as a backend.
 
 ## npm scripts
