@@ -1,8 +1,10 @@
 import React from 'react';
-import $ from 'jquery';
 import Spinner from 'react-spinkit';
+
 import Button from '../../ui/Button/Button';
-import './homepage.scss';
+import SearchService from '../../../services/search.service';
+
+import './home-page.scss';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -15,17 +17,11 @@ class HomePage extends React.Component {
       queryInProgress: false,
     };
     this.delayTimer = null;
+    this.searchService = new SearchService();
   }
 
   get hasData() {
     return (this.state.data && this.state.data.data && this.state.data.data.length > 0);
-  }
-
-  getData1(query, page) {
-    console.log(`Querying for ${query}`);
-    this.showProgress(true);
-    return $.get(`https://klarna-187423.appspot.com/api/search?query=${query}&page=${page}`)
-      .promise();
   }
 
   setPage(page) {
@@ -41,7 +37,8 @@ class HomePage extends React.Component {
   doSearch(timeout = 1000) {
     clearTimeout(this.delayTimer);
     this.delayTimer = setTimeout(() => {
-      this.getData1(this.state.searchInputValue, this.state.page).then((result) => {
+      this.showProgress(true);
+      this.searchService.search(this.state.searchInputValue, this.state.page).then((result) => {
         console.log(`Result for ${this.state.searchInputValue}`);
         // console.log(result);
         this.showProgress(false);

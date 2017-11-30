@@ -4,7 +4,7 @@ import { shallow, configure } from 'enzyme';
 
 import Adapter from 'enzyme-adapter-react-16';
 
-import HomePage from './HomePage';
+import HomePage from './home-page';
 
 configure({ adapter: new Adapter() });
 
