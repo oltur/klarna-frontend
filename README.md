@@ -1,3 +1,6 @@
+#Front-end for Klarna People Search.
+
+Uses https://klarna-187423.appspot.com/api/search as a backend.
 
 ## npm scripts
 * `npm start` – starts development server with webpack-dev-server
